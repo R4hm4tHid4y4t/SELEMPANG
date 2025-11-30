@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: selempangku_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: selempangku_new
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - selempangku_network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: selempangku_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - selempangku_network
+
+volumes:
+  mysql_data:
+
+networks:
+  selempangku_network:
+    driver: bridge
