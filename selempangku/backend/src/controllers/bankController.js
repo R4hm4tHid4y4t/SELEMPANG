@@ -2,7 +2,7 @@
 // CONTROLLERS - BANK CONTROLLER
 // src/controllers/bankController.js
 // ============================================================
-
+const pool = require('../config/database'); 
 exports.getAll = async (req, res) => {
   try {
     const [banks] = await pool.execute(`
