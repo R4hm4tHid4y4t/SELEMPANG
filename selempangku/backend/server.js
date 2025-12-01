@@ -16,6 +16,7 @@ const orderRoutes = require('./src/routes/orders');
 const paymentRoutes = require('./src/routes/payments');
 const adminRoutes = require('./src/routes/admin');
 const bankRoutes = require('./src/routes/banks');
+const profileRoutes = require('./src/routes/profile');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -59,6 +60,9 @@ app.use('/api/payments', paymentRoutes);
 
 // Bank Rekening Routes
 app.use('/api/banks', bankRoutes);
+
+// Profile Routes
+app.use('/api/profile', profileRoutes);
 
 // Admin Routes
 app.use('/api/admin', adminRoutes);
