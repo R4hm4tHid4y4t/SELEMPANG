@@ -3,6 +3,8 @@
 // src/controllers/adminController.js
 // ============================================================
 
+const pool = require('../config/database');
+
 exports.getDashboard = async (req, res) => {
   try {
     const [stats] = await pool.execute('SELECT * FROM v_dashboard_stats');

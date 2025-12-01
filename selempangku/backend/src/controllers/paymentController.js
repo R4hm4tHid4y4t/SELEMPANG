@@ -3,6 +3,8 @@
 // src/controllers/paymentController.js
 // ============================================================
 
+const pool = require('../config/database');
+
 exports.create = async (req, res) => {
   try {
     const { pesanan_id, metode_pembayaran, bank_pengirim, nomor_rekening, jumlah_transfer } = req.body;

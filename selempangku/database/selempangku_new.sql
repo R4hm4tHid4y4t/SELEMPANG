@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 29, 2025 at 05:08 AM
+-- Generation Time: Dec 01, 2025 at 03:02 AM
 -- Server version: 5.7.39
 -- PHP Version: 8.1.10
 
@@ -140,6 +140,16 @@ CREATE TABLE `pemesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`id`, `nomor_pesanan`, `user_id`, `produk_id`, `jumlah`, `harga_satuan`, `subtotal`, `ongkir`, `total_harga`, `status`, `alamat_pengiriman`, `tanggal_pesanan`, `updated_at`) VALUES
+(1, 'ORD-000001', 3, 1, 1, '75000.00', '75000.00', '15000.00', '90000.00', 'Pending', 'Limau Manis', '2025-11-30 23:35:45', '2025-11-30 23:35:45'),
+(2, 'ORD-000002', 3, 1, 1, '75000.00', '75000.00', '15000.00', '90000.00', 'Pending', 'Limau Manis', '2025-11-30 23:36:16', '2025-11-30 23:36:16'),
+(3, 'ORD-000003', 3, 1, 1, '75000.00', '75000.00', '15000.00', '90000.00', 'Pending', 'Limau Manis', '2025-11-30 23:51:05', '2025-11-30 23:51:05'),
+(4, 'ORD-000004', 3, 2, 2, '65000.00', '130000.00', '15000.00', '145000.00', 'Pending', 'Padang', '2025-12-01 00:12:07', '2025-12-01 00:12:07');
+
+--
 -- Triggers `pemesanan`
 --
 DELIMITER $$
@@ -214,7 +224,8 @@ CREATE TABLE `rekening_bank` (
 
 INSERT INTO `rekening_bank` (`id`, `nama_bank`, `nomor_rekening`, `nama_pemilik`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Bank BCA', '1234567890', 'SelempangKu Store', 'Aktif', '2025-11-26 02:43:01', '2025-11-26 02:43:01'),
-(2, 'Bank Mandiri', '0987654321', 'SelempangKu Store', 'Aktif', '2025-11-26 02:43:01', '2025-11-26 02:43:01');
+(2, 'Bank Mandiri', '0987654321', 'SelempangKu Store', 'Aktif', '2025-11-26 02:43:01', '2025-11-26 02:43:01'),
+(3, 'BNI', '123456', 'SelempangKu_Store', 'Aktif', '2025-11-30 23:50:30', '2025-11-30 23:50:30');
 
 -- --------------------------------------------------------
 
@@ -243,7 +254,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `username`, `password`, `nama_lengkap`, `nomor_telepon`, `alamat`, `jenis_kelamin`, `foto_profil`, `role`, `created_at`, `updated_at`) VALUES
 (1, 'admin@selempangku.com', 'admin', '$2b$10$example_hashed_password', 'Admin User', NULL, NULL, NULL, NULL, 'Admin', '2025-11-26 02:43:01', '2025-11-26 02:43:01'),
-(2, 'customer@example.com', 'customer1', '$2b$10$example_hashed_password', 'John Doe', NULL, NULL, NULL, NULL, 'Customer', '2025-11-26 02:43:01', '2025-11-26 02:43:01');
+(2, 'customer@example.com', 'customer1', '$2b$10$example_hashed_password', 'John Doe', NULL, NULL, NULL, NULL, 'Customer', '2025-11-26 02:43:01', '2025-11-26 02:43:01'),
+(3, 'rh6479458@gmail.com', 'rahmat23', '$2b$10$mIJKwNogcxMv77Kq5yODnehEEEs9BHHAYlwdWkrFQSv/chdNX3i06', 'Rahmat Hidayat', '+6281374777302', NULL, NULL, NULL, 'Customer', '2025-11-29 15:44:14', '2025-11-29 15:44:14');
 
 -- --------------------------------------------------------
 
@@ -360,7 +372,7 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -372,13 +384,13 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `rekening_bank`
 --
 ALTER TABLE `rekening_bank`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
