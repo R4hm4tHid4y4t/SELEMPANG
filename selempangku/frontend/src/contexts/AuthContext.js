@@ -1,5 +1,5 @@
 // ============================================================
-// AUTH CONTEXT
+// AUTH CONTEXT FINAL
 // src/contexts/AuthContext.js
 // ============================================================
 
@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Load from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
@@ -25,13 +26,15 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (userData, token) => {
-    localStorage.setItem('token', token);
+  // LOGIN
+  const login = (userData, authToken) => {
+    localStorage.setItem('token', authToken);
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
-    setToken(token);
+    setToken(authToken);
   };
 
+  // LOGOUT
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -40,13 +43,18 @@ export const AuthProvider = ({ children }) => {
     authService.logout();
   };
 
+  // CEK ADMIN
+  const isAdmin = user?.role?.toLowerCase() === "admin";
+
+  // PROVIDER VALUE
   const value = {
     user,
     token,
     loading,
     login,
     logout,
-    isAuthenticated: !!token
+    isAuthenticated: !!token,
+    isAdmin                 // <-- INI YANG KITA TAMBAHKAN
   };
 
   return (

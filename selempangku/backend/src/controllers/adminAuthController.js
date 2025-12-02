@@ -1,20 +1,20 @@
 // backend/src/controllers/adminAuthController.js
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const pool = require('../config/database'); // atau path koneksi MySQL-mu
+const pool = require('../config/database'); // sesuaikan path koneksi DB jika berbeda
+const { generateToken } = require('../utils/jwt');
 
 exports.loginAdmin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // hanya user dengan role Admin
+    // ambil user yang punya role Admin (sesuaikan nama tabel/kolom jika beda)
     const [rows] = await pool.execute(
-      'SELECT * FROM user WHERE email = ? AND role = "Admin" LIMIT 1',
+      'SELECT * FROM `user` WHERE email = ? AND role = "Admin" LIMIT 1',
       [email]
     );
 
-    if (rows.length === 0) {
-      return res.status(401).json({ message: 'Email atau password salah.' });
+    if (!rows || rows.length === 0) {
+      return res.status(401).json({ message: 'Admin tidak ditemukan' });
     }
 
     const admin = rows[0];
@@ -24,22 +24,20 @@ exports.loginAdmin = async (req, res) => {
       return res.status(401).json({ message: 'Email atau password salah.' });
     }
 
-    const token = jwt.sign(
-      { id: admin.id, role: 'Admin' },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' }
-    );
+    // Gunakan helper generateToken agar payload konsisten ({ userId, role })
+    const token = generateToken(admin.id, 'Admin', '1d');
 
+    // Kembalikan user minimal + token
     res.json({
       message: 'Login admin berhasil',
       user: {
         id: admin.id,
         email: admin.email,
-        username: admin.username,
-        nama_lengkap: admin.nama_lengkap,
-        role: 'Admin',
+        username: admin.username || null,
+        nama_lengkap: admin.nama_lengkap || null,
+        role: 'Admin'
       },
-      token,
+      token
     });
   } catch (err) {
     console.error(err);

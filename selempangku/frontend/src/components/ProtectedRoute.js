@@ -28,13 +28,17 @@ const ProtectedRoute = ({ children, roles }) => {
   }
 
   // Check role authorization
-  if (roles && !roles.includes(user?.role)) {
-    // If admin trying to access user routes or vice versa
-    if (user?.role === 'Admin') {
+const normalizedUserRole = user?.role?.toString().toLowerCase();
+
+if (roles) {
+  const normalizedRoles = roles.map(r => r.toString().toLowerCase());
+  if (!normalizedRoles.includes(normalizedUserRole)) {
+    if (normalizedUserRole === 'admin') {
       return <Navigate to="/admin/dashboard" replace />;
     }
     return <Navigate to="/" replace />;
   }
+}
 
   return children;
 };
